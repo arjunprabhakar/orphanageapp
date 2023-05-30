@@ -1,0 +1,127 @@
+{% extends 'volunteer/V-base2.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="{% static 'css/apply_leave.css' %}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<style>
+    .aa{
+        height: 40px;
+        border-radius:5px;
+        color:red;
+        border-color: #000;
+        text-align: center;
+    }
+    .bb{
+        height: 40px;
+        border-radius:5px;
+    }
+</style>
+<script>
+    $(function () {
+    var selectedDates = [];
+    // Initialize the datepicker
+    $("#calendar").datepicker({
+        onSelect: function (date) {
+            // Disable the datepicker if the user has used up their permitted leaves
+            if (selectedDates.length >= {{ leaves_left }}) {
+                $("#calendar").datepicker("option", "disabled", true);
+                alert("Your permitted leaves are over.");
+                return;
+            }
+            // Check if the date has already been selected
+            if (selectedDates.includes(date)) {
+                alert("You have already selected this date.");
+            } else {
+                // Add the selected date to the list of selected dates
+                selectedDates.push(date);
+                // Create an input field for the selected date and append it to the selected-dates div
+                $("#selected-dates").append("<input class='aa' type='text' name='apply_date' value='" + date + "' format='YYYY-MM-DD' readonly>   <input class='bb' type='text' id='reason_id' name='reason_"+ date +"' placeholder='Reason' onclick='return enable()'>  <br><br>");
+            }
+        }
+    });
+});
+
+
+
+
+    
+
+    function enable(){
+        document.getElementById('btn').style.display="block";
+    }
+</script>
+
+
+
+
+
+
+
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Apply Leave</h3>
+                </div>
+            </div>  <p style="color:red;">Number of Leaves Left: {{ leaves_left }}</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span style="font-weight:bold;">Apply Leave</span></h5>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <div>
+                                            <div id="calendar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="selected-dates"
+                                                style="background-color:rgb(113, 149, 247);width:410px;text-align:center;color:#fff;font-weight:bold;height:30px;">Selected
+                                                dates</label>
+                                            <form action="{% url 'apply_leave' %}" method="post" enctype="multipart/form-data"
+                                                onsubmit="return validateform();">
+                                                {% csrf_token %}
+                                    
+                                                <div id="selected-dates"></div>
+
+                                                <div class="col-12">
+                                                    <button type="submit" id="btn" class="btn btn-success" style="display:none;">Apply</button>
+                                                </div>
+                                    
+                                            </form>
+                                    
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

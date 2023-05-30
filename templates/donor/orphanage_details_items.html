@@ -1,0 +1,69 @@
+
+{% extends 'donor/D-base.html' %}
+{% load static %}
+{% block content %}
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			
+			<div class="row" style="margin-bottom:300px;margin-top:100px;">
+				<div class="col-md-12">
+					<!-- <span><a class="btn btn-primary btn-lg" href="{%  url 'selectdistrict' %}">Add more orphanages</a></span> -->
+
+					<h3 class="text-center mb-4" style="font-weight:bold;">{{orphanage.name}} Orphanage details</h3>
+					<div class="table-wrap" style="margin-top:30px;">
+						<table class="table"  style="background-color: #D6EEEE;border-style:solid;">
+					    <thead class="thead-primary">
+					      <tr>
+					        <th>Name</th>
+					        <th>District</th>
+					        <th>City</th>
+					        <th>Address</th>
+                        	<th>PIN</th>
+					        <th>Phone</th>
+					        <th>Email</th>				
+					        
+					      </tr>
+					    </thead>
+					    <tbody>
+					    {% for i in orphanage %}
+						<tr>
+							<!-- <td>{{i.id}}</td> -->
+
+					        <td style="color:red;font-weight:bold;">{{i.name}}</td>
+					        <td>{{i.district.district}}</td>
+					        <td>{{i.city}}</td>
+					        <td>{{i.address}}</td>
+                            <td>{{i.pin}}</td>
+                            <td>{{i.mobile}}</td>
+                            <td>{{i.email_id}}</td>
+					        <td><a href="{% url 'donate_items' i.id  %}" class="btn btn-primary">Donate Items</a></td>
+
+					        
+
+                            
+								</div>
+							 </td> 
+						</tr>
+						{% endfor %}
+								
+					    </tbody>
+					  </table>
+					  
+	  
+	  
+	
+
+			
+		</div>
+	</section>
+
+
+
+	</body>
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Student Analysis</title>
+</head>
+<body>
+    <h1>Student Analysis</h1>
+    <p>Accuracy of logistic regression model: {{ data.accuracy.0 }}</p>
+    <p>Accuracy of decision tree model: {{ data.accuracy.1 }}</p>
+    <h2>Confusion matrix for logistic regression model:</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Predicted Fail</th>
+            <th>Predicted Pass</th>
+        </tr>
+        <tr>
+            <th>Actual Fail</th>
+            <td>{{ data.confusion_lr.0.0 }}</td>
+            <td>{{ data.confusion_lr.0.1 }}</td>
+        </tr>
+        <tr>
+            <th>Actual Pass</th>
+            <td>{{ data.confusion_lr.1.0 }}</td>
+            <td>{{ data.confusion_lr.1.1 }}</td>
+        </tr>
+    </table>
+    <h2>Confusion matrix for decision tree model:</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Predicted Fail</th>
+            <th>Predicted Pass</th>
+        </tr>
+        <tr>
+            <th>Actual Fail</th>
+            <td>{{ data.confusion_dt.0.0 }}</td>
+            <td>{{ data.confusion_dt.0.1 }}</td>
+        </tr>
+        <tr>
+            <th>Actual Pass</th>
+            <td>{{ data.confusion_dt.1.0 }}</td>
+            <td>{{ data.confusion_dt.1.1 }}</td>
+        </tr>
+    </table>
+    <h2>Student data:</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Total Marks</th>
+            <th>Average Marks</th>
+            <th>Pass/Fail</th>
+        </tr>
+        {% for name, gender, total_marks, average_marks, pass_fail in zip(data['Name'], data['Gender'], data['Total Marks'], data['Average Marks'], data['Pass/Fail']) %}
+    <tr>
+        <td>{{ name }}</td>
+        <td>{{ 'Female' if gender == 1 else 'Male' }}</td>
+        <td>{{ total_marks }}</td>
+        <td>{{ average_marks }}</td>
+        <td>{{ pass_fail }}</td>
+    </tr>
+{% endfor %}
+
+    
+    </table>
+</body>
+</html>

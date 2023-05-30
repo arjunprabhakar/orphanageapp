@@ -1,0 +1,75 @@
+{% extends 'volunteer/V-base.html' %}
+{% load static %}
+{% block content %}
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title"></h3>
+                        <ul class="breadcrumb">
+                           <!-- <li class="breadcrumb-item"><a href="index.html" style="font-weight:bold;color:red;">Total : {{count}}</a></li> -->
+                        </ul>
+                     </div>
+                     <div class="col-auto text-right float-right ml-auto">
+                        <!-- <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                        <a href="{% url 'children_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="col-12">
+                  <p style="color:red;">Number of leaves left: {{ leaves_left }}</p>
+              </div>
+              
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table class="table table-hover table-center mb-0 datatable">
+                                 <thead>
+                                    <tr>
+                                       <!-- <th>ID</th> -->
+                                       <th>Date Applied</th>
+                                       <th>Leave date</th>
+                                       <!-- <th>To date</th> -->
+                                       <th>Reason</th>
+                                      
+                                       <th class="">Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for i in leaves %}
+                                    <tr>
+                                       
+                                       <td>{{i.date_applied}}</td>
+                                       <td>{{i.leave_date}}</td>
+                                       
+                                       <td>{{i.reason}}</td>
+                                       <td>
+                                          {% if i.status != 0 %}
+                                       <i class="fas fa-check" style="color:green;">Accepted</i>
+                                          {% else %}
+                                          <!-- <a href="{% url 'Accept_Volunteer_donations' i.id %}" class="btn btn-sm bg-success-dark mr-2"> -->
+                                       <i class="fas fa-check" style="color:red;"> Pending</i>
+                                          {% endif %}
+                                      </td>
+                                    <td>
+                                       {% if i.status == 0 %}
+                                       <a href="{% url 'delete_leave' i.id %}">delete</a></td>
+                                       {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}
+    

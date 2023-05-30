@@ -1,0 +1,83 @@
+{% extends 'donor/D-base.html' %}
+{% load static %}
+{% block content %}
+{% include 'donor/alert.html' %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<script>
+  function validateform(){
+    var a=document.getElementById('amounts').value.trim();
+
+
+    // var exprr = /^[1-9]\d{0}$/;
+
+    
+
+    //         if(a=="")
+    //         {
+    //            document.getElementById('amt').style.display="block";
+    //            document.getElementById('amt').innerHTML="**Please Enter amount";
+    //            return false;
+    //         }
+    //         if(a!="" && exprr.test(a)==false){
+    //            document.getElementById('amt').style.display= "block";
+    //            document.getElementById('amt').innerHTML ="Invalid Amount";
+    //            return false;
+    //               }
+    //         else{
+    //            document.getElementById('amt').style.display="none";
+    //         }
+  }
+</script>
+
+
+<div class="container" style = "margin-top:50px;margin-bottom:300px;">
+    <h2 class="text-center" style="font-weight:bold;">Select an orphanage..</h2>
+    <br><br>
+    <form method="post" action="{% url 'selectdistrict' %}" id="indexForm" data-orphanages-url="{% url 'ajax_load_orphanages' %}" onsubmit="return validateform();">
+         {% csrf_token %}
+        <label>District</label>
+        <select name="district" id="district" class="form-control" required>
+            <option value="">---select district---</option>
+            {% for i in district %}
+            <option value="{{i.id}}">{{i.district}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Orphanages</label>
+      <select name="orphanage" id="orphanages" class="form-control" required>
+        <br>
+      </select>
+        <div class="form-group">
+          <label>Enter Amount</label>
+          <input type="text" class="form-control" name="amount" id="amounts" style="width:200px;" onKeyUp="return validateform()" onblur="return validateform()">
+          <span id="amt" style="color: red;"></span>  
+
+         </div>
+        <br>
+        <input type = "submit" value="Submit" class="form-control btn btn-primary">
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#district").change(function () {
+      var url = $("#indexForm").attr("data-orphanages-url");  // get the url of the `load_courses` view
+      var districtId = $(this).val();  // get the selected programming ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+        data: {
+          'district': districtId       // add the programming id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_courses` view function
+          $("#orphanages").html(data);  // replace the contents of the course input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+
+{% endblock %}

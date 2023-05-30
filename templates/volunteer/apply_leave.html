@@ -1,0 +1,176 @@
+
+
+{% extends 'volunteer/V-base.html' %}
+{% load static %}
+{% block content %}
+
+ 
+<script>
+   function validateform(){
+      var a=document.getElementById('names').value.trim();
+      var d=document.getElementById('cty').value.trim();
+      var e=document.getElementById('add').value.trim();
+      var f=document.getElementById('pnn').value.trim();
+      
+
+
+
+      if(a=="")
+                {
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Please Enter Name";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(a)){
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('nme').style.display="none";
+				}
+      
+
+            if(d=="")
+                {
+					document.getElementById('ct').style.display="block";
+                    document.getElementById('ct').innerHTML="**Please Enter City";
+                    return false;
+                }
+				else{
+					document.getElementById('ct').style.display="none";
+					
+				}
+            if(e=="")
+                {
+					document.getElementById('ad').style.display="block";
+                    document.getElementById('ad').innerHTML="**Please Enter Address";
+                    return false;
+                }
+				else{
+					document.getElementById('ad').style.display="none";
+				}
+
+
+            var exprr = /^[1-9]\d{5}$/;
+
+            if(f=="")
+            {
+               document.getElementById('pn').style.display="block";
+               document.getElementById('pn').innerHTML="**Please Enter Pin";
+               return false;
+            }
+            if(f!="" && exprr.test(f)==false){
+               document.getElementById('pn').style.display= "block";
+               document.getElementById('pn').innerHTML ="Invalid pin number";
+               return false;
+                  }
+            else{
+               document.getElementById('pn').style.display="none";
+            }
+
+   }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Apply Leave</h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <form action="{% url 'apply_leave' %}" method="post" enctype="multipart/form-data" onsubmit="return validateform();">
+                              {% csrf_token %}
+                              <div class="row">
+                                 <div class="col-12">
+                                    <h5 class="form-title"><span style="font-weight:bold;">Apply Leave</span></h5>
+                                 </div>
+                                 
+                                
+                                 <!-- <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>From</label>
+                                       <div>
+                                          <input type="date" class="form-control" name="from_date"  required>
+                                       </div>
+                                    </div>
+                                 </div>
+             -->
+                                 <!-- <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>To</label>
+                                       <div>
+                                          <input type="date" class="form-control" name="to_date"  required>
+                                       </div>
+                                    </div>
+                                 </div> -->
+
+                                 <!-- <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label> Reason</label>
+                                       <input type="text" class="form-control" name="reason" id="res" onKeyUp="return validateform()" onblur="return validateform()">
+                                       <span id="nme" style="color: red;"></span>
+                                    </div>
+                                 </div> -->
+
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <div>
+                                          fds
+                                       </div>
+                                    </div>
+                                 </div>
+   
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       GFDS
+                                    </div>
+                                 </div>
+
+
+
+
+
+
+
+                                 <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                 </div>
+
+                              </div>
+                           </form>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}

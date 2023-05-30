@@ -1,0 +1,73 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+      <div class="page-wrapper">
+        <div class="content container-fluid">
+          <div class="page-header">
+            <div class="row">
+              <div class="col-sm-12">
+                <h3 class="page-title">{{user.fname}} {{user.lname}}</h3>
+                
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="about-info">
+                    <div class="media mt-3">
+                      <img src="{{user.image.url}}" class="mr-3" alt="..." />
+                      <div class="media-body">
+
+                        <ul>
+                          <li>
+                            <span class="title-span">Full Name : </span>
+                            <span class="info-span">{{user.fname}} {{user.lname}}</span>
+                          </li>
+                          <li>
+                            <span class="title-span">Email : </span>
+                            <span class="info-span">{{user.email.email}}</span>
+                          </li>
+                          <li>
+                            <span class="title-span">Gender : </span>
+                            <span class="info-span">{{user.gender}}</span>
+                          </li>
+                          <li>
+                            <span class="title-span">ID : </span>
+                            <span class="info-span"> {{user.id}}</span>
+                          </li>
+                          <li>
+                            <span class="title-span">Gender : </span>
+                            <span class="info-span">{{user.gender}}</span>
+                          </li>
+                          <li>
+                            <span class="title-span">Address : </span>
+                            <span class="info-span">{{user.district}},{{user.city}},{{user.address}},Pin-{{user.pin}}</span>
+                          </li>
+
+                          <li>
+                            <span class="title-span">Join Date : </span>
+                            <span class="info-span" style="color:red;">{{user.date}}</span>
+                          </li>                         
+                        </ul>                       
+                      </div>
+                    </div>                  
+                  </div>
+                </div>
+              </div>
+              
+              
+
+              
+
+              
+            </div>
+          </div>
+        </div>
+
+      
+      </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,202 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<script>
+   function validateform(){
+      var a=document.getElementById('names').value.trim();
+      var d=document.getElementById('cty').value.trim();
+      var e=document.getElementById('add').value.trim();
+      var f=document.getElementById('pnn').value.trim();
+      
+
+
+
+      if(a=="")
+                {
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Please Enter Name";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(a)){
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('nme').style.display="none";
+				}
+      
+
+            if(d=="")
+                {
+					document.getElementById('ct').style.display="block";
+                    document.getElementById('ct').innerHTML="**Please Enter City";
+                    return false;
+                }
+				else{
+					document.getElementById('ct').style.display="none";
+					
+				}
+            if(e=="")
+                {
+					document.getElementById('ad').style.display="block";
+                    document.getElementById('ad').innerHTML="**Please Enter Address";
+                    return false;
+                }
+				else{
+					document.getElementById('ad').style.display="none";
+				}
+
+
+            var exprr = /^[1-9]\d{5}$/;
+
+            if(f=="")
+            {
+               document.getElementById('pn').style.display="block";
+               document.getElementById('pn').innerHTML="**Please Enter Pin";
+               return false;
+            }
+            if(f!="" && exprr.test(f)==false){
+               document.getElementById('pn').style.display= "block";
+               document.getElementById('pn').innerHTML ="Invalid pin number";
+               return false;
+                  }
+            else{
+               document.getElementById('pn').style.display="none";
+            }
+
+   }
+</script>
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Add Child</h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <form action="{% url 'children_add' %}" method="post" enctype="multipart/form-data" onsubmit="return validateform();">
+                              {% csrf_token %}
+                              <div class="row">
+                                 <div class="col-12">
+                                    <h5 class="form-title"><span style="font-weight:bold;">Details</span></h5>
+                                 </div>
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label> Name</label>
+                                       <input type="text" class="form-control" name="fname" id="names" onKeyUp="return validateform()" onblur="return validateform()">
+                                       <span id="nme" style="color: red;"></span>
+                                    </div>
+                                 </div>
+                                 
+                              
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>Gender</label>
+                                       <select class="form-control" name="gender" required>
+                                          <option>Select Gender</option>
+                                          <option>Female</option>
+                                          <option>Male</option>
+                                          <option>Others</option>
+                                       </select>
+                                    </div>
+                                 </div>
+
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>Date of Birth</label>
+                                       <div>
+                                          <input type="date" class="form-control" name="dob" max="2023-03-31" required>
+                                       </div>
+                                    </div>
+                                 </div>
+            
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>Joining Date</label>
+                                       <div>
+                                          <input type="date" class="form-control" name="doj" max="2023-03-31" required>
+                                       </div>
+                                    </div>
+                                 </div>
+   
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label> Image</label>
+                                       <input type="file" class="form-control" name="img" required>
+                                    </div>
+                                 </div>
+
+                                 <div class="col-12">
+                                    <h5 class="form-title"><span style="font-weight:bold;">Place Of Origin</span></h5>
+                                 </div>
+                                 
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                    <label>District</label>
+                                    <select class="form-control" name="district" name="district" required>
+                                    <option>Select-District</option>
+                                    <option>Alapuzha</option>
+                                    <option>Ernakulam</option>
+                                    <option>Idukki</option>
+                                    <option>Kannur</option>
+                                    <option>Kasargod</option>
+                                    <option>Kollam</option>
+                                    <option>Kottayam</option>
+                                    <option>Kozhikode</option>
+                                    <option>Malapuram</option>
+                                    <option>Palakad</option>
+                                    <option>Pathanamthitta</option>
+                                    <option>Thiruvananthapuram</option>
+                                    <option>Thrissur</option>
+                                    <option>Wayanad</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>City</label>
+                                       <input type="text" class="form-control" name="city" id="cty" onKeyUp="return validateform()" onblur="return validateform()">
+                                       <span id="ct" style="color: red;"></span>
+                                    </div>
+                                 </div>
+
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>Address</label>
+                                       <textarea class="form-control" name="address" id="add" onKeyUp="return validateform()" onblur="return validateform()"></textarea>
+                                       <span id="ad" style="color: red;"></span>
+
+                                    </div>
+                                 </div>
+
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>Pin</label>
+                                       <input type="text" class="form-control" name="pin" maxlength="6" id="pnn" maxlength="6" onKeyUp="return validateform()" onblur="return validateform()">
+                                       <span id="pn" style="color: red;"></span>
+                                    </div>
+                                 </div>
+                                 <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                 </div>
+
+                              </div>
+                           </form>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}
+     

@@ -1,0 +1,145 @@
+{% extends 'donor/D-base.html' %}
+{% load static %}
+{% block content %}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<div class="container" style = "margin-top:50px">
+ <div style="background-color:red;height:500px;align-items:center;justify-content:center;text-align:center;width:1000px;display:inline;">
+	<form method="post" action="{% url 'donation_items_save' %}" onsubmit="return validateform();">
+		{% csrf_token %}
+		<div style="background-color: rgb(153, 148, 148);height:490px;width:470px;float:left;">
+			<h1 style="color:#fff;font-weight:bold;">Donate Items</h1>
+			<div style="background-color:#fff;width:280px;margin-left:60px;margin-top:20px;height:370px;">
+				<div class="form-group" style="display:none;">
+					<input type="text" name="opid"  class="input-text" value="{{orphanage.id}}"  >
+				</div>
+				<!-- <script>
+					var date=new Date();
+					var tdate=date.getDate();
+					var month=date.getMonth() + 1;
+					if(tdate < 10)
+				  {
+					tdate='0'+tdate;
+				  } 
+				   if(month < 10)
+				  {
+					month='0' +month;
+				  }
+				  var year=date.getUTCFullYear();
+				  var minDate=year+"-"+month+"-"+tdate;
+				  document.getElementById("date").setAttribute('min',minDate);
+				  </script> -->
+				<input type="date"  name="date"  id="dt" style="width: 250px;height:35px;font-weight:bold;margin-top:30px;" onclick="return onclear()" onkeyup="return validateform()" onblur="return validateform()">
+				<span id="dtt" style="color: red;"></span>
+				<div style="background-color:#fff;text-align: left;margin-top:10px;">
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+					<script>
+						$(document).ready(function()
+						{
+							$('.chkcvalues').click(function()
+							{
+								var txt="";
+								$('.chkcvalues:checked').each(function()
+								{
+									txt+=$(this).val()+","
+								});
+								$('#it').val(txt);
+							});
+						});
+
+						function validateform()
+						 {
+							 var a=document.getElementById('dt').value.trim();
+							 var b=document.getElementById('it').value.trim();
+							 var c=document.getElementById('rad');
+							 if(a=="")
+									
+								{
+									document.getElementById('dtt').style.display="block";
+									document.getElementById('dtt').innerHTML="**Please Select date";
+									return false;
+								}
+								else{
+								document.getElementById('dtt').style.display="none";
+							
+							}
+								if(b=="")
+									
+								{
+									document.getElementById('itt').style.display="block";
+									document.getElementById('itt').innerHTML="**Please Select above Items";
+									return false;
+								}
+								else{
+								document.getElementById('itt').style.display="none";
+							}
+							if(c.checked == false)
+									
+								{
+									document.getElementById('rd').style.display="block";
+									document.getElementById('rd').innerHTML="**Please Select Address";
+									return false;
+								}
+								else{
+								document.getElementById('rd').style.display="none";
+								return true;
+							}
+
+					}
+
+					function onclear(){
+						document.getElementById('dtt').innerHTML="";
+						document.getElementById('itt').innerHTML="";
+						document.getElementById('rd').innerHTML="";
+					}
+					</script>
+					
+                    {% for i in items %}
+					<label style="margin-left:20px;">{{i.name}}</label>
+					<input  type="checkbox" value="{{i.name}}" class="chkcvalues" onclick="return onclear()"><br>
+					{% endfor %}
+				</div>
+				<input type="text" placeholder="select any above items" readonly name="item"  id="it" style="width: 250px;height:35px;font-weight:bold;margin-top:10px;" required>
+				<span id="itt" style="color: red;"></span>
+				<input type="text"  name="other" placeholder="Enter if any other donations" id="oth" style="width: 250px;height:35px;font-weight:bold;margin-top:10px;">
+			</div>
+		</div>
+		<div style="background-color: rgba(123, 120, 120, 0.861);height:490px;width:380px;margin-left:440px;">
+			<h1 style="color:#fff;font-weight:bold;">Select Address</h1>
+			<div style="height:360px;width:300px;background-color:#fff;margin-left:50px;margin-top:25px;">
+				<a   href="{% url 'addnew_address'  %}"><span style="color:red;font-weight:bold;">Add address</span></a>
+
+				<div style="background-color:#fff;">
+					<div style="background-color: #fff;margin-top:15px;width:300px;height:150px;">
+				<span id="rd" style="color: red;"></span>
+
+						{% for i in address %}
+                        {% if i.id%}
+						
+						<input type="radio" value="{{i.id}}" id="rad" name="radio" style="margin-left:-240px;margin-top:30px;" onclick="return onclear()">
+
+						<table style="margin-left:40px;margin-top:-24px;">
+							<tr><td><h4 style="color:#000;" >{{i.fname}}&nbsp{{i.lname}}</h4></td></tr>
+							<tr><td><h5>{{i.mobile}}</h5></td></tr>
+							<tr><td><h5>{{i.district}},{{i.city}}</h5></td></tr>
+							<!-- <tr><td><h5>Puthenpura,Eriyapally</h5></td></tr> -->
+							<tr><td><h5>{{i.address}},{{i.pin}}</h5></td></tr>
+						</table>
+						<h6>__________________________</h6>
+					
+						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="submit" value="Donate" style="margin-top:-40px;margin-left:-230px;height:30px;width:80px;background-color:rgb(249, 94, 4);border:none;color:#fff;font-size:15px;border-radius:4px;font-weight:bold;">
+	</form>
+ </div>
+</div>
+
+
+
+{% endblock %}
+

@@ -1,0 +1,411 @@
+{% extends 'orphanage/base.html' %}
+{% include 'orphanage/alert.html' %}
+{% load static %}
+{% block content %}
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row">
+                     <div class="col">
+                        <h3 class="page-title">Profile</h3>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="profile-header">
+                        <div class="row align-items-center">
+                           <div class="col-auto profile-image">
+                              <a href="#">
+                              <img class="rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-02.jpg' %}">
+                              </a>
+                           </div>
+                           <div class="col ml-md-n2 profile-user-info">
+                              <h4 class="user-name mb-0">{{user.name}}</h4>
+                              <div class="user-Location"><i class="fas fa-map-marker-alt"></i> {{user.district.district}}</div>
+                              <div class="about-text" style="margin-left:15px;">{{user.address}}</div>
+                           </div>
+                           <div class="col-auto profile-btn">
+                             
+                           </div>
+                        </div>
+                     </div>
+                     <div class="profile-menu">
+                        <ul class="nav nav-tabs nav-tabs-solid">
+                           <li class="nav-item">
+                              <a class="nav-link active" data-toggle="tab" href="#per_details_tab">About</a>
+                           </li>
+                           <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#edit_tab">Edit Profile</a>
+                           </li>
+                           <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>
+                           </li>
+                        
+                        </ul>
+                     </div>
+                     <div class="tab-content profile-tab-cont">
+                        <div class="tab-pane fade show active" id="per_details_tab">
+                           <div class="row" >
+                              <div class="col-lg-9">
+                                 <div class="card" >
+                                    <div class="card-body" >
+                                       <h5 class="card-title d-flex justify-content-between">
+                                          <span>Account Details</span>
+                                       </h5>
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name :</p>
+                                          <p class="col-sm-9">{{user.name}}</p>
+                                       </div>
+                                       <div class="row">
+                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">LicenseNo :</p>
+                                        <p class="col-sm-9">{{user.orphanage_id}}</p>
+                                     </div>
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Established Date :</p>
+                                          <p class="col-sm-9">{{user.date}}</p>
+                                       </div>
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email :</p>
+                                          <p class="col-sm-9">{{user.email_id}}</p>
+                                       </div>
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile :</p>
+                                          <p class="col-sm-9">{{user.mobile}}</p>
+                                       </div>
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0">Address :</p>
+                                          <p class="col-sm-9 mb-0">{{user.district.district}}<br>
+                                             {{user.city}}<br>
+                                             {{user.address}}<br>
+                                             {{user.pin}}
+                                          </p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-3">
+                                 <div class="card" >
+                                    <div class="card-body" >
+                                       <h5 class="card-title d-flex justify-content-between">
+                                          <span>Account Status</span>
+                                       </h5>
+                                       <button  class="btn btn-success" type="button" style="margin-left:50px;"><i class="fe fe-check-verified" ></i> Active</button>
+                                    </div>
+                                 </div>
+                                 
+                              </div>
+                           </div>
+                        </div>
+                        <script>
+                                
+                           function password_validate()
+                           {
+                               var a=document.getElementById('ops').value.trim();
+                               var b=document.getElementById('nps').value.trim();
+                               var c=document.getElementById('cps').value.trim();
+
+                               var passpatern=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+                               if(a=="")
+                               {
+                                   document.getElementById('opss').style.display="block";
+                                   document.getElementById('opss').innerHTML="**please enter Confirm Password";
+                                   return false;
+                               }
+                               else{
+                                       document.getElementById('opss').style.display="none";            
+                                   }
+                                   
+                               if(b=="")
+                               {
+                                   document.getElementById('npss').style.display="block";
+                                   document.getElementById('npss').innerHTML="**please enter new Password";
+                                   return false;
+                               }
+
+                               if (!b.match(passpatern))
+                               {
+                                   document.getElementById('npss').style.display="block";
+                                   document.getElementById('npss').innerHTML="**Min length 8 | One Uppercase |One lowercase | One number";
+                                   return false;
+                               }
+                               else{
+                                       document.getElementById('npss').style.display="none";
+                                   }
+
+                                   if(c=="")
+                               {
+                                   document.getElementById('cpss').style.display="block";
+                                   document.getElementById('cpss').innerHTML="**please enter Confirm Password";
+                                   return false;
+                               }
+                               else{
+                                       document.getElementById('cpss').style.display="none";
+                                       
+                                   }
+                                   if(b!=c)
+                                   {
+                                       document.getElementById('cpss').style.display="block";
+                                       document.getElementById('cpss').innerHTML="**Password doesn't match";
+                                       return false;
+                                   }
+                                   else{
+                                           document.getElementById('cpss').style.display="none";
+                                           return true;
+                                       }
+                               }
+                           </script>
+
+                        <div id="password_tab" class="tab-pane fade">
+                           <div class="card">
+                              <div class="card-body">
+                                 <h5 class="card-title">Change Password</h5>
+                                 <div class="row">
+                                    <div class="col-md-10 col-lg-6">
+                                       <form action="{% url 'change_password' %}" method="post" onsubmit="return password_validate()">
+                                        {% csrf_token %}
+                                          <div class="form-group">
+                                             <label>Old Password</label>
+                                             <input type="password" class="form-control" name="oldpass" id="ops" onKeyUp="return password_validate()" onblur="return password_validate()">
+                                             <span id="opss" style="color: red;"></span>
+                                          </div>
+                                          <div class="form-group">
+                                             <label>New Password</label>
+                                             <input type="password" class="form-control" name="pass" id="nps" onKeyUp="return password_validate()" onblur="return password_validate()">
+                                             <span id="npss" style="color: red;"></span>
+                                          </div>
+                                          <div class="form-group">
+                                             <label>Confirm Password</label>
+                                             <input type="password" class="form-control" id="cps" onKeyUp="return password_validate()" onblur="return password_validate()">
+                                             <span id="cpss" style="color: red;"></span>
+                                          </div>
+                                          <button class="btn btn-primary" type="submit">Save Changes</button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        <script>
+                           function validateform()
+                                   {
+                                    var a=document.getElementById('phone').value.trim();
+                                    var b=document.getElementById('names').value.trim();
+                                    var c=document.getElementById('roid').value.trim();
+                                    var d=document.getElementById('cty').value.trim();
+                                    var e=document.getElementById('add').value.trim();
+                                    var f=document.getElementById('pnn').value.trim();
+                                    var g=document.getElementById('dte').value.trim();
+
+
+
+                                    var expr = /^[6-9]\d{9}$/;
+                if(a=="")
+                {
+                    document.getElementById('mob').style.display="block";
+                    document.getElementById('mob').innerHTML="**Please Enter Number";
+                    return false;
+                }
+                if(a!="" && expr.test(a)==false){
+                           document.getElementById('mob').style.display= "block";
+                           document.getElementById('mob').innerHTML ="Invalid Phone number";
+                           return false;
+                                   }
+                                   else{
+                           document.getElementById('mob').style.display = "none";
+                           
+                       }
+
+
+                       if(b=="")
+                {
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Please Enter Orphanage Name";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(b)){
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('nme').style.display="none";
+				}
+
+
+            var expr = /^[0-9]\d{5}$/;
+				if(c=="")
+                {
+					document.getElementById('od').style.display="block";
+                    document.getElementById('od').innerHTML="**Please Enter License Number";
+                    return false;
+                }
+                else{
+                    document.getElementById('od').style.display = "none";                   
+                       }
+
+
+               if(d=="")
+                {
+					document.getElementById('ct').style.display="block";
+                    document.getElementById('ct').innerHTML="**Please Enter City";
+                    return false;
+                }
+				else{
+					document.getElementById('ct').style.display="none";
+					
+				}
+
+
+            if(e=="")
+                {
+					document.getElementById('ad').style.display="block";
+                    document.getElementById('ad').innerHTML="**Please Enter Address";
+                    return false;
+                }
+				else{
+					document.getElementById('ad').style.display="none";
+				}
+
+
+                        var exprr = /^[1-9]\d{5}$/;
+
+            if(f=="")
+            {
+               document.getElementById('pn').style.display="block";
+               document.getElementById('pn').innerHTML="**Please Enter Pin";
+               return false;
+            }
+            if(f!="" && exprr.test(f)==false){
+               document.getElementById('pn').style.display= "block";
+               document.getElementById('pn').innerHTML ="Invalid pin number";
+               return false;
+                  }
+            else{
+               document.getElementById('pn').style.display="none";
+            }
+
+
+            var r = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+                  if(g == "")
+                  {
+                      document.getElementById('dt').style.display="block";
+                      document.getElementById('dt').innerHTML="**Please Select Date";
+                      return false;
+                  }
+                  else{
+                      document.getElementById('dt').style.display="none";
+                      return true;
+                  }
+
+                                   }
+
+
+                                   function valueClear()
+                {   
+                var givenDate=document.getElementById('dte').value.trim();
+                document.getElementById('dt').innerHTML="";
+                }
+                        </script>
+                        <div id="edit_tab" class="tab-pane fade">
+                            <div class="card">
+                               <div class="card-body">
+                                  <h5 class="card-title">Edit Account</h5>
+                                  <div class="row">
+                                     <div class="col-md-10 col-lg-6">
+                                        <form action="{% url 'O_Profile_edit' %}" method="post" onsubmit="return validateform();">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="email" value="{{user.email_id}}" class="form-control" name="email" readonly style="width:220px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Mobile</label>
+                                                    <input type="text" value="{{user.mobile}}" class="form-control" name="mobile" style="width:220px;" maxlength="10" id="phone" maxlength="10" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="mob" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Orphanage Name</label>
+                                                    <input type="text" class="form-control" value="{{user.name}}" name="name" style="width:220px;" id="names" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="nme" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Orphanage LicenseNo</label>
+                                                    <input type="text" class="form-control" value="{{user.orphanage_id}}" name="oid" style="width:220px;" id="roid" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="od" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>District</label>
+                                                    <select class="form-control" name="district" style="width:220px;">
+                                                    <option value="{{user.district_id}}">{{user.district.district}}</option>
+                                                    {% for i in district %}
+                                                    {% if user.district_id != i.id %}
+                                                    <option value="{{i.id}}">{{i.district}}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>City</label>
+                                                    <input class="form-control" value="{{user.city}}" type="text" name="city" style="width:220px;" id="cty" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="ct" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Address</label>
+                                                    <input class="form-control" value="{{user.address}}" type="textarea" name="address" style="width:220px;" id="add" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="ad" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Pin Number</label>
+                                                    <input class="form-control" type="text" value="{{user.pin}}" name="pin" style="width:220px;" maxlength="6" id="pnn" maxlength="6" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="pn" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Established Date</label>
+                                                    <input type="date" class="form-control" value="{{user.date|date:'Y-m-d'}}" name="date"  style="width:220px;" onchange="return valueClear()">
+                                                    </div>
+                                                </div>
+                                        
+                                            <div class="col-12" style="padding-left :150px;"> 
+                                                     <button type="submit" class="btn btn-primary">Save Changes</button>                 
+                                            </div>
+                                            </div>
+                                        </form>
+                                     </div>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script data-cfasync="false" src="{% static '../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+   </body>
+   {% endblock %}

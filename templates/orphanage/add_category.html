@@ -1,0 +1,50 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Add Category</h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <form action="{% url 'add_category' %}" method="post" enctype="multipart/form-data" onsubmit="return validateform();">
+                              {% csrf_token %}
+                              <div class="row">
+                                 <div class="col-12">
+                                    <h5 class="form-title"><span style="font-weight:bold;">Details</span></h5>
+                                 </div>
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label> Category</label>
+                                       <input type="text" class="form-control" name="category" id="names" onKeyUp="return validateform()" onblur="return validateform()">
+                                       <span id="nme" style="color: red;"></span>
+                                    </div>
+                                 </div>
+                                 
+                              
+                                 
+                                 <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                 </div>
+
+                              </div>
+                           </form>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}
+     

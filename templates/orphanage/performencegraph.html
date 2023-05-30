@@ -1,0 +1,135 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+  
+
+  <div class="page-wrapper">
+    <div class="content container-fluid">
+     
+       {{student}}
+
+       <div class="row">
+        <div class="col-lg-6">
+        <div class="card" style="width:950px;">
+         
+           
+        <div class="card-body" style="width:900px;">
+        <div class="table-responsive" style="width:900px;">
+            <div>
+              <img src="data:image/png;base64,{{ plot_data }}" alt="Marks Plot" style="width:800px;">
+            </div>
+
+            <table class="table mb-0">
+                <thead>
+                <tr>
+                <th>Student</th>
+                <th>Mid-term exam1 percentage</th>
+                <th>Mid-term exam2 percentage</th>
+                <th>Pass percentage</th>
+                <th>Performence</th>
+                </tr>
+                </thead>
+                <tbody>
+              
+              {% for i in user %} 
+                <tr class="table-primary">
+                <td>
+                  <h2 class="table-avatar">
+                     <a href="{% url 'children_details' i.student_id %}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.student.image.url}}" alt="User Image"></a>
+                     <a href="{% url 'children_details' i.student_id %}" style="color:red;">{{i.student.fname}} </a>
+                  </h2>
+                </td>
+                <td  style="text-align:center;">{{i.mark1}} %</td>
+                <td style="text-align:center;">{{i.mark2}} %</td>
+                <td style="text-align:center;">{{i.predicted_passpercentage}} %</td>
+                {% if i.predicted_passpercentage >= 90 %}
+                <td style="text-align:center;color:green;">Excellent</td>
+               {% elif i.predicted_passpercentage >= 70 and i.predicted_passpercentage < 90 %}
+               <td style="text-align:center;color:green;">Good</td>
+               {% elif i.predicted_passpercentage >= 60 and i.predicted_passpercentage < 70 %}
+               <td style="text-align:center;color:yellow;">Average</td>
+               {% elif i.predicted_passpercentage >= 50 and i.predicted_passpercentage < 60 %}
+               <td style="text-align:center;color:red;">Below Average</td>
+               {% else %}
+               <td style="text-align:center;color:red;">Fail</td>
+               {% endif %}
+
+
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+                </table>
+        </div>
+        {% for i in user %} 
+        <div class="row mt-2">
+            <div class="col-md-12">
+              <div class="skill-info">
+                <h4>Evaluation</h4>
+              
+                <ul>
+                  <li>
+                    <label>Mid-term exam1 total percentage</label>
+                    <div class="progress">
+                      <div
+                        class="progress-bar progress-bar-striped progress-bar-animated"
+                        role="progressbar"
+                        aria-valuenow="75"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style="width: {{i.mark1}}%"
+                      ></div>
+                    </div>
+                  </li>
+                  <li>
+                    <label>Mid-term exam2 total percentage</label>
+                    <div class="progress">
+                      <div
+                        class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                        role="progressbar"
+                        aria-valuenow="69"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style="width: {{i.mark2}}%"
+                      ></div>
+                    </div>
+                  </li>
+                  <li>
+                    <label>Chance of pass the final exam</label>
+                    <div class="progress">
+                      <div
+                        class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                        role="progressbar"
+                        aria-valuenow="86"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style="width: {{i.predicted_passpercentage}}%"
+                      ></div>
+                    </div>
+                  </li>
+
+
+                </ul>
+              
+                
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+        </div>
+        </div>
+        </div>
+    
+    
+
+
+
+    </div>
+ </div>
+
+
+
+{% endblock %}

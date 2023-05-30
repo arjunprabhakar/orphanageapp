@@ -1,0 +1,58 @@
+{% extends 'donor/D-base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper" >
+    <div class="content container-fluid" style="margin-left:-180px;margin-top:-100px;">
+       <div class="page-header">
+          <div class="row">
+             <div class="col">
+                <h3 class="page-title">Addresses</h3>
+          </div>
+					<span><a class="btn btn-primary btn-lg" href="{%  url 'addnew_address' %}">Add new address</a></span>
+
+       </div>
+       <div class="card">
+        <div class="card-body">
+           <div class="row">
+              <div class="col-md-10 col-lg-6">
+              
+
+                     
+                      <!-- {% for i in details %}
+                      <a   href="{% url 'Delete_details' i.id %}"><span style="color:red;font-weight:bold;">Delete</span></a>
+                         {% endfor %} -->
+                   </h5>
+                   {% for i in details %}
+                   <div class="row">
+                      <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name :</p>
+                      <p class="col-sm-9">{{i.fname}} {{i.lname}}</p>
+                   </div>                                                                    
+                   <div class="row">
+                      <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email :</p>
+                      <p class="col-sm-9">{{i.email_id}}</p>
+                   </div>
+                   <div class="row">
+                      <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile :</p>
+                      <p class="col-sm-9">{{i.mobile}}</p>
+                   </div>
+                   <div class="row">
+                      <p class="col-sm-3 text-muted text-sm-right mb-0">Address :</p>
+                      <p class="col-sm-9 mb-0">{{i.district}}<br>
+                         {{i.city}}<br>
+                         {{i.address}}<br>
+                         {{i.pin}}
+                      </p>
+                      _________________________________________________________
+                   </div>
+                   {% endfor %}
+                </div>
+             </div>
+          </div>
+          <script data-cfasync="false" src="{% static '../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
+          <script src="{% static 'assets/js/popper.min.js' %}"></script>
+          <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+          <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+          <script src="{% static 'assets/js/script.js' %}"></script>
+       </body>
+       {% endblock %}

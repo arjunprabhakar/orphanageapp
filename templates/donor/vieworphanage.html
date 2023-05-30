@@ -1,0 +1,131 @@
+
+{% extends 'donor/D-base.html' %}
+{% load static %}
+{% block content %}
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			
+			<div class="row" style="margin-bottom:300px;margin-top:100px;">
+				<div class="col-md-12">
+					<span><a class="btn btn-primary btn-lg" href="{%  url 'selectdistrict' %}">Add more orphanages</a></span>
+
+					<h3 class="text-center mb-4" style="font-weight:bold;">{{orphanage.name}} Orphanage </h3>
+					<div class="table-wrap" style="margin-top:30px;">
+						<table class="table"  style="background-color: #D6EEEE;border-style:solid;">
+					    <thead class="thead-primary">
+					      <tr>
+					        <th>Name</th>
+					        <th>District</th>
+					        <th>City</th>
+					        <th>Address</th>
+                            <th>PIN</th>
+					        <th>Phone</th>
+					        <th>Email</th>				
+					        <th>Amount</th>				
+                            <th></th>
+                            <th></th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					    {% for i in data %}
+						<tr>
+							<td>{{i.id}}</td>
+
+					        <td style="color:red;font-weight:bold;">{{i.orphanage.name}}</td>
+					        <td>{{i.orphanage.district.district}}</td>
+					        <td>{{i.orphanage.city}}</td>
+					        <td>{{i.orphanage.address}}</td>
+                            <td>{{i.orphanage.pin}}</td>
+                            <td>{{i.orphanage.mobile}}</td>
+                            <td>{{i.orphanage.email_id}}</td>
+                            <td>{{i.amount}}</td>
+							<td class="text-right">
+								<div class="actions">
+								  
+								   <a href="{% url 'Delete_orphanage' i.id %}" class="btn btn-sm bg-danger-light">
+								   <i class="fas fa-trash"></i>
+								   </a>
+								</div>
+							 </td>
+						</tr>
+						{% endfor %}
+								
+					    </tbody>
+					  </table>
+					  <h4>Total Amount: {{total}}</h4>
+					  
+					
+					  <form action="/payment_success/" method="POST" id="myform">{% csrf_token %}
+						<button class="boxed-btn" type="submit" id="rzp-button1">Pay Now</button>
+
+	  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	  <script>
+	  var options = {
+		  "key": "rzp_test_X13OlQLlw6nlxS", 
+		  "amount": "{{amount}}", 
+		  "currency": "INR",
+		  "name": "Orphanage Management",
+		  "description": "Test Transaction",
+		  "image": "https://example.com/your_logo",
+		  "order_id": "{{order_id}}", //This is a sample Order ID. Pass the id obtained in the response of Step 1
+		  "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+		 "handler": function (response){
+									  console.log("success")
+									  var form = document.getElementById["myform"];
+	  
+	  
+									  var a = response.razorpay_payment_id;
+	  
+									  // alert({{order_id}})
+	  
+									window.location.href = 'http://127.0.0.1:8000/payment_done'
+								  },
+		  "prefill": {
+			  "name": "{{user.f_name}}",
+			  "email": "{{usr_lg.email}}",
+			  "contact": "{{user.mobile}}"
+		  },
+		  "notes": {
+			  "address": "Razorpay Corporate Office"
+		  },
+		  "theme": {
+			  "color": "#3399cc"
+		  }
+	  
+	  };
+	  var rzp1 = new Razorpay(options);
+	  document.getElementById('rzp-button1').onclick = function(e){
+		  rzp1.open();
+		  e.preventDefault();
+	  }
+	  </script></form>
+					</div>
+				</div>
+			
+			</div>
+
+
+			<script>
+				function hide(){
+					document.getElementById('hidd').style.display="block";
+				}
+			</script>
+			<div style="margin-top:-250px;margin-bottom:200px;display:none;" id="hidd" >
+			
+				
+			</div>
+
+			
+		</div>
+	</section>
+
+
+
+	</body>
+
+{% endblock %}
+
+
+
+

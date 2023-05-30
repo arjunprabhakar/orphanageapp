@@ -1,0 +1,391 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+<title>Orphanage Management</title>
+
+<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}">
+<link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&amp;display=swap' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+<!-- *****Chained Drop Down ***************** -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
+</head>
+
+
+
+
+   <!-- *****************Index Page Header************** -->
+   <html class="no-js"> 
+      <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Orphanage and Donation Management system</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+      <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+      <meta name="author" content="FREEHTML5.CO" />
+   
+      <meta property="og:title" content=""/>
+      <meta property="og:image" content=""/>
+      <meta property="og:url" content=""/>
+      <meta property="og:site_name" content=""/>
+      <meta property="og:description" content=""/>
+      <meta name="twitter:title" content="" />
+      <meta name="twitter:image" content="" />
+      <meta name="twitter:url" content="" />
+      <meta name="twitter:card" content="" />
+      <link rel="shortcut icon" href="favicon.ico">
+   
+      <link rel="stylesheet" href="{%static 'css/animate.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/icomoon.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/bootstrap.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/superfish.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/style.css' %}">
+   
+      <script src="{%static 'js/modernizr-2.6.2.min.js' %}"></script>
+      </head>
+      <body>
+         <div id="fh5co-wrapper">
+         <div id="fh5co-page">
+        
+         <header id="fh5co-header-section" class="sticky-banner" style="background-color:#FC7E3F;">
+            <div class="container" >
+               <div class="nav-header" >
+                  <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+                       <style>
+                           h4 {
+                             display: inline-block;
+                             font-weight: bold;
+                             margin-top: 25px;
+                           }
+                           </style>
+                  <h4>Orphanage</h4> <h4 style="color:#fff">Management</h4> 
+                  <nav id="fh5co-menu-wrap" role="navigation">
+                     <ul class="sf-menu" id="-primary-menu">
+                        <li ><a href="{% url 'logout' %}" style="color:#fff;">logout</a></li>			
+                     </ul>
+                  </nav>
+               </div>
+            </div>
+         </header>
+
+         <!-- Orphanage details registration form -->
+
+
+<script>
+
+function validateform()
+            {
+                var a=document.getElementById('phone').value.trim();
+                var b=document.getElementById('names').value.trim();
+                var c=document.getElementById('lnames').value.trim();
+                var d=document.getElementById('gendr').value.trim();
+				var e=document.getElementById('cty').value.trim();
+                var f=document.getElementById('add').value.trim();
+                var g=document.getElementById('pnn').value.trim();
+
+
+
+
+
+
+                var expr = /^[6-9]\d{9}$/;
+                if(a=="")
+                {
+                    document.getElementById('mob').style.display="block";
+                    document.getElementById('mob').innerHTML="**Please Enter Number";
+                    return false;
+                }
+                if(a!="" && expr.test(a)==false){
+                           document.getElementById('mob').style.display= "block";
+                           document.getElementById('mob').innerHTML ="Invalid Phone number";
+                           return false;
+                                   }
+                                   else{
+                           document.getElementById('mob').style.display = "none";
+                           
+                       }
+
+
+                       if(b=="")
+                {
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Please Enter First Name";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(b)){
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('nme').style.display="none";
+				}
+
+
+                if(c=="")
+                {
+					document.getElementById('lnme').style.display="block";
+                    document.getElementById('lnme').innerHTML="**Please Enter Last Name";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(c)){
+					document.getElementById('lnme').style.display="block";
+                    document.getElementById('lnme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('lnme').style.display="none";
+				}
+
+                // if(d=="")
+                // {
+				// 	document.getElementById('gndr').style.display="block";
+                //     document.getElementById('gndr').innerHTML="**Please Select Gender";
+                //     return false;
+                // }
+                // else{
+                //     document.getElementById('gndr').style.display = "none";                   
+                //     }
+
+
+                //     if(h=="")
+                // {
+				// 	document.getElementById('dist').style.display="block";
+                //     document.getElementById('dist').innerHTML="**Please Select District";
+                //     return false;
+                // }
+                // else{
+                //     document.getElementById('dist').style.display = "none";                   
+                //     }
+
+                if(e=="")
+                {
+					document.getElementById('ct').style.display="block";
+                    document.getElementById('ct').innerHTML="**Please Enter City";
+                    return false;
+                }
+				else{
+					document.getElementById('ct').style.display="none";
+					
+				}
+
+                if(f=="")
+                {
+					document.getElementById('ad').style.display="block";
+                    document.getElementById('ad').innerHTML="**Please Enter Address";
+                    return false;
+                }
+				else{
+					document.getElementById('ad').style.display="none";
+				}
+
+
+                var exprr = /^[1-9]\d{5}$/;
+
+                  if(g=="")
+                  {
+                      document.getElementById('pn').style.display="block";
+                      document.getElementById('pn').innerHTML="**Please Enter Pin";
+                      return false;
+                  }
+                  if(g!="" && exprr.test(g)==false){
+                     document.getElementById('pn').style.display= "block";
+                     document.getElementById('pn').innerHTML ="Invalid pin number";
+                     return false;
+                         }
+                  else{
+                      document.getElementById('pn').style.display="none";
+                  }
+
+            }
+
+</script>
+
+<body>
+<div class="page-wrapper" style="margin-left:-5px;">
+<div class="content container-fluid">
+<div class="col" style="margin-top:-50px;text-align: center;">
+<h3 class="page-title" >Add  Details</h3>
+<ul class="breadcrumb">
+</ul>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div class="card">
+<div class="card-body">
+<form action="{% url 'Volunteer_Home' %}" method="post" id="indexForm" enctype="multipart/form-data" data-orphanages-url="{% url 'ajax_load_orphanages' %}" onsubmit="return validateform();">
+    {% csrf_token %}
+<div class="row">
+<div class="col-12">
+<h5 class="form-title"><span>Basic Details</span></h5>
+</div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>Email</label>
+        <input type="email" value="{{email}}" class="form-control" name="email" readonly style="font-weight:bold;">
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>Mobile</label>
+        <input type="text" class="form-control" name="mobile" maxlength="10" name="mobile" id="phone" maxlength="10" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+        <span id="mob" style="color: red;"></span> 
+    </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" name="fname" id="names" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+        <span id="nme" style="color: red;"></span>                                              
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" name="lname" id="lnames" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+        <span id="lnme" style="color: red;"></span>                                                  
+    </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>Gender</label>
+        <select class="form-control" name="gender" id="gendr" onKeyUp="return validateform()" onblur="return validateform()">
+        <span id="gndr" style="color: red;"></span>                                                  
+        <option>Select-Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>District</label>
+        <select class="form-control" name="districts" >
+        <option>Select-District</option>
+        <option>Alapuzha</option>
+        <option>Ernakulam</option>
+        <option>Idukki</option>
+        <option>Kannur</option>
+        <option>Kasargod</option>
+        <option>Kollam</option>
+        <option>Kottayam</option>
+        <option>Kozhikode</option>
+        <option>Malapuram</option>
+        <option>Palakad</option>
+        <option>Pathanamthitta</option>
+        <option>Thiruvananthapuram</option>
+        <option>Thrissur</option>
+        <option>Wayanad</option>
+        </select>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>City</label>
+        <input class="form-control" type="text" name="city" id="cty" onKeyUp="return validateform()" onblur="return validateform()">
+        <span id="ct" style="color: red;"></span>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>Address</label>
+        <input class="form-control" type="text" name="address" id="add" onKeyUp="return validateform()" onblur="return validateform()">
+        <span id="ad" style="color: red;"></span>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>Pin Number</label>
+        <input class="form-control" type="text" name="pin" id="pnn" maxlength="6" onKeyUp="return validateform()" onblur="return validateform()">
+        <span id="pn" style="color: red;"></span>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+        <label>User Photo</label>
+        <input type="file" class="form-control" name="img" >
+        </div>
+    </div>
+
+    <!-- ************ Chained DropDown For Orphanage Selection *********** -->
+
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+            <label>Orphanage-District</label>
+            <select class="form-control" name="district" id="district">
+            <option>Select-District</option>
+            {% for i in district %}
+            <option value="{{i.id}}">{{i.district}}</option>
+            {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6">
+        <div class="form-group">
+            <label>Orphanage</label>
+            <select class="form-control" name="name" id="orphanages">
+            <option>Select district to find Orphanage</option>
+                <!-- *** Load Orphanage options from orphanage_dropdown.html  using ajax ***-->
+            </select>
+        </div>
+    </div>
+<div class="col-12" style="padding-left :590px;">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+</form>
+
+<!-- ************* Ajax Function For Loading Orphanage ************** -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#district").change(function () {
+      var url = $("#indexForm").attr("data-orphanages-url"); 
+      var districtId = $(this).val(); 
+      $.ajax({                       
+        url: url,                    
+        data: {
+          'district': districtId     
+        },
+        success: function (data) {  
+          $("#orphanages").html(data); 
+        }
+      });
+
+    });
+</script>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+<script src="{% static 'assets/js/script.js' %}"></script>
+</body>
+
+</html>

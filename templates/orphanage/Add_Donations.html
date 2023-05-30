@@ -1,0 +1,317 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<script>
+   function validateform(){
+      var a=document.getElementById('names').value.trim();
+      var b=document.getElementById('quantity').value.trim();
+      var c=document.getElementById('desc').value.trim();
+      
+
+      if(a=="")
+                {
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Please Enter item";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(a)){
+					document.getElementById('nme').style.display="block";
+                    document.getElementById('nme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('nme').style.display="none";
+				}
+
+            
+            if(b=="")
+                {
+					document.getElementById('qnty').style.display="block";
+                    document.getElementById('qnty').innerHTML="**Please Enter Quantity";
+                    return false;
+                }
+				else{
+					document.getElementById('qnty').style.display="none";
+				}
+
+            if(c=="")
+                {
+					document.getElementById('des').style.display="block";
+                    document.getElementById('des').innerHTML="**Please Enter Description";
+                    return false;
+                }
+				else{
+					document.getElementById('des').style.display="none";
+				}
+   }
+</script>
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Add Item</h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <form action="{% url 'Add_Donation' %}" method="post" enctype="multipart/form-data" onsubmit="return validateform();">
+                              {% csrf_token %}
+                              
+                              
+                              <div class="row">
+                                 <div class="col-12">
+                                    <h5 class="form-title"><span style="font-weight:bold;">Add Items</span></h5>
+                                 </div>
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>Item Name</label>
+                                       <input type="text" style="width:420px;" class="form-control" name="first_name" id="names" onKeyUp="return validateform()" onblur="return validateform()">
+                                       <span id="nme" style="color: red;"></span>
+                                    </div>
+                                 </div>
+
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                       <label>Category</label>
+                                       <select class="form-control" style="width:420px;margin-left:-27px;" name="first_category" id="first_category_id" onchange="return validateother()">
+                                                {% for i in category %}
+                                                <option>{{i.category}}</option>
+                                                {% endfor %}
+                                          <option>Other</option>
+                                       </select>
+                                       <span id="qnty" style="color: red;"></span>
+                                    </div>
+                                 </div>
+
+                                 <script>
+                                    function validateother(){
+                                    var other=document.getElementById('first_category_id').value.trim();
+                                    if (other == 'Other'){
+                                    document.getElementById('first_other_hide').style.display='block';
+                                    }
+                                    if (other != 'Other'){
+                                    document.getElementById('first_other_hide').style.display='none';
+                                    }
+                                    }
+                                 </script>
+
+                                 <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                    </div>
+                                 </div>
+
+                                 <div class="col-12 col-sm-6" style="display:none;" id="first_other_hide">
+                                    <div class="form-group">
+                                       <input type="text" style="width:420px;margin-left:-27px;" class="form-control" placeholder="Enter new category" name="first_other_category" id="first_otherid" >
+                                    </div>
+                                 </div>
+
+                              </div>
+
+
+                              <!-- ************ first div *************** -->
+                              <div class="row" style="display:none;" id="first_div">
+                                <table>
+                                 <tr>
+                                    <td>
+                                       <div class="col-12 col-sm-6">
+                                          <div class="form-group">
+                                             <label>Item Name</label>
+                                             <input type="text" style="width:420px;" class="form-control" name="second_name" id="" onKeyUp="return validateform()" onblur="return validateform()">
+                                             <span id="" style="color: red;"></span>
+                                          </div>
+                                       </div>
+                                    </td>
+                                    <td>                                 
+                                       <div class="col-12 col-sm-6">
+                                          <div class="form-group">
+                                             <label>Category</label>
+                                             <select style="width:420px;" class="form-control" name="second_category" id="second_category_id" onchange="return validate_second_other()">
+                                                {% for i in category %}
+                                                <option>{{i.category}}</option>
+                                                {% endfor %}
+                                                <option>Other</option>
+                                             </select>
+                                             <span id="" style="color: red;"></span>
+                                          </div>
+                                       </div>
+
+                                    </td>
+                                 </tr>
+                                 <script>
+                                    function validate_second_other(){
+                                    var other=document.getElementById('second_category_id').value.trim();
+                                    if (other == 'Other'){
+                                    document.getElementById('second_other_hide').style.display='block';
+                                    }
+                                    if (other != 'Other'){
+                                    document.getElementById('second_other_hide').style.display='none';
+                                    }
+                                    }
+                                 </script>
+                                 <tr>
+                                    <td></td>
+                                    <td>
+                                       <div class="col-12 col-sm-6" style="display:none;" id="second_other_hide">
+                                          <div class="form-group">
+                                             <input type="text" style="width:420px;" class="form-control" placeholder="Enter new category" name="second_other_category" id="" >
+                                          </div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 </table>
+                              </div>
+
+                              <!-- ******** Second div ******** -->
+                              <div class="row" style="display:none;" id="second_div">
+                                 <table>
+                                 <tr>
+                                    <td>
+                                       <div class="col-12 col-sm-6">
+                                          <div class="form-group">
+                                             <label>Item Name</label>
+                                             <input type="text" style="width:420px;" class="form-control" name="third_name" id="" onKeyUp="return validateform()" onblur="return validateform()">
+                                             <span id="" style="color: red;"></span>
+                                          </div>
+                                       </div>
+                                    </td>
+                                    <td>                                 
+                                       <div class="col-12 col-sm-6">
+                                          <div class="form-group">
+                                             <label>Category</label>
+                                             <select style="width:420px;" class="form-control" name="third_category" id="third_category_id" onchange="return validate_third_other()" onblur="return validateform()">
+                                                {% for i in category %}
+                                                <option>{{i.category}}</option>
+                                                {% endfor %}
+                                                <option>Other</option>
+                                             </select>
+                                             <span id="" style="color: red;"></span>
+                                          </div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <script>
+                                    function validate_third_other(){
+                                    var other=document.getElementById('third_category_id').value.trim();
+                                    if (other == 'Other'){
+                                    document.getElementById('third_other_hide').style.display='block';
+                                    }
+                                    if (other != 'Other'){
+                                    document.getElementById('third_other_hide').style.display='none';
+                                    }
+                                    }
+                                 </script>
+                                 <tr>
+                                    <td></td>
+                                    <td>
+                                       <div class="col-12 col-sm-6" style="display:none;" id="third_other_hide">
+                                          <div class="form-group">
+                                             <input type="text" style="width:420px;" class="form-control" placeholder="Enter new category" name="third_other_category" id="" >
+                                          </div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 </table>
+                              </div>
+
+                              <!-- ###### third div ###### -->
+                              <div class="row" style="display:none;" id="third_div">
+                                 <table>
+                                 <tr>
+                                    <td>
+                                       <div class="col-12 col-sm-6">
+                                          <div class="form-group">
+                                             <label>Item Name</label>
+                                             <input type="text" style="width:420px;" class="form-control" name="fourth_name" id="" onKeyUp="return validateform()" onblur="return validateform()">
+                                             <span id="" style="color: red;"></span>
+                                          </div>
+                                       </div>
+                                    </td>
+                                    <td>                                 
+                                       <div class="col-12 col-sm-6">
+                                          <div class="form-group">
+                                             <label>Category</label>
+                                             <select style="width:420px;" class="form-control" name="fourth_category" id="fourth_category_id" onchange="return validate_fourth_other()" >
+                                                {% for i in category %}
+                                                <option>{{i.category}}</option>
+                                                {% endfor %}
+                                                <option>Other</option>
+                                             </select>
+                                             <span id="" style="color: red;"></span>
+                                          </div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <script>
+                                    function validate_fourth_other(){
+                                    var other=document.getElementById('fourth_category_id').value.trim();
+                                    if (other == 'Other'){
+                                    document.getElementById('fourth_other_hide').style.display='block';
+                                    }
+                                    if (other != 'Other'){
+                                    document.getElementById('fourth_other_hide').style.display='none';
+                                    }
+                                    }
+                                 </script>
+                                 <tr>
+                                    <td></td>
+                                    <td>
+                                       <div class="col-12 col-sm-6" style="display:none;" id="fourth_other_hide">
+                                          <div class="form-group">
+                                             <input type="text" style="width:420px;" class="form-control" placeholder="Enter new category" name="fourth_other_category" id="" >
+                                          </div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 </table>
+                              </div>
+                              <!-- ******* Add More Buttons ******* -->
+                           <a  style="margin-left:800px;font-weight:bold;display: block;" id="first" onclick="return firsthide()">Add More</a>
+                           <a  style="margin-left:800px;font-weight:bold;display:none;" id="second" onclick="return secondhide()">Add More</a>
+                           <a  style="margin-left:780px;font-weight:bold;display:none;" id="third" onclick="return thirdhide()">Add More</a>
+                           <!--  ******* submit Button ********* -->
+                           <div class="col-12">
+                              <button type="submit" id="save_data" class="btn btn-primary">Submit</button>
+                           </div>
+                              </div>
+                        </form>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <script>
+            function firsthide(){
+               document.getElementById('first_div').style.display='block';
+               document.getElementById('first').style.display='none';
+               document.getElementById('second').style.display='block';
+            }
+
+            function secondhide(){
+               document.getElementById('first_div').style.display='block';
+               document.getElementById('second_div').style.display='block';
+               document.getElementById('first').style.display='none';
+               document.getElementById('second').style.display='none';
+               document.getElementById('third').style.display='block';
+            }
+
+            function thirdhide(){
+               document.getElementById('first_div').style.display='block';
+               document.getElementById('second_div').style.display='block';
+               document.getElementById('third_div').style.display='block';
+               document.getElementById('first').style.display='none';
+               document.getElementById('second').style.display='none';
+               document.getElementById('third').style.display='none';
+            }
+         </script>
+{% endblock %}
+     

@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Predictions</title>
+</head>
+<body>
+	{% if predictions %}
+		<h2>Predictions:</h2>
+       
+		<ul>
+		{% for prediction in predictions %}
+            <li>Email: {{ prediction.email_id }}</li>
+            <li>Amount: ${{ prediction.actual_amount }}</li>
+            <li>Predicted amount: ${{ prediction.predicted_amount }}</li><br>
+		{% endfor %}
+		</ul>
+        <img src="{% static 'donation_predictions.png' %}" alt="Donation Predictions">
+
+	{% else %}
+		<p>No predictions found.</p>
+	{% endif %}
+</body>
+</html>

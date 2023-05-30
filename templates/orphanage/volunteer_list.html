@@ -1,0 +1,81 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Volunteer</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="index.html" style="font-weight:bold;color:red;">Total : {{count}}</a></li>
+                        </ul>
+                     </div>
+                     <div class="col-auto text-right float-right ml-auto">
+                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                        <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table class="table table-hover table-center mb-0 datatable">
+                                 <thead>
+                                    <tr>
+                                       <th>ID</th>
+                                       <th>Name</th>
+                                       <th>Gender</th>
+                                       <th>Gmail</th>
+                                       <th>Phone</th>
+                                       <th >Request</th>
+                                       <th >Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for i in volunteer %}
+                                    <tr>
+                                       <td>{{i.id}}</td>
+                                       <td>
+                                          <h2 class="table-avatar">
+                                             <a href="{% url 'volunteer_details' i.id %}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.image.url}}" alt="User Image"></a>
+                                             <a href="{% url 'volunteer_details' i.id %}" style="color:red;">{{i.fname}} {{i.lname}}</a>
+                                          </h2>
+                                       </td>
+                                       <td>{{i.gender}}</td>
+                                       <td>{{i.email_id}}</td>
+                                       <td>{{i.mobile}}</td>
+                                             <td>
+                                                {% if i.status != 0 %}
+                                             <i class="fas fa-check" style="color:green;">Accepted</i>
+                                                {% else %}
+                                                <a href="{% url 'Accept_Volunteer_Request' i.id %}" class="btn btn-sm bg-success-dark mr-2">
+                                             <i class="fas fa-check" style="color:red;"> Accept</i>
+                                                {% endif %}
+                                            </td>
+                                            
+                                             </a>
+                                             <td >
+                                                <div class="actions">
+                                             <a href="{% url 'delete_volunteer' i.id %}" class="btn btn-sm bg-danger-dark">
+                                             <i class="fas fa-trash">Remove</i>
+                                             </a>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}
+    

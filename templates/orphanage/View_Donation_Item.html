@@ -1,0 +1,89 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Items Received</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="index.html" style="font-weight:bold;color:red;"></a></li>
+                        </ul>
+                     </div>
+                     <div class="col-auto text-right float-right ml-auto">
+                        <a href="{% url 'download_donations_csv' %}" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download CSV</a>
+                        <a href="{% url 'download_donations_pdf' %}" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download PDF</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table class="table table-hover table-center mb-0 datatable">
+                                 <thead>
+                                    <tr>
+                                       <th>Sl No</th>
+                                       <th>Donor Email</th>
+                                       <th>Items</th>
+                                       <th>Donation applied on</th>
+                                       <!-- <th>Donation to be collected</th> -->
+                                       <!-- <th>Status</th> -->
+                                       <th >Status</th>
+
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for i in item %}
+                                    <tr>
+                                       <td>{{forloop.counter}}</td>
+                                       <td><a href="#">{{i.user_id}}</a></td>
+                                       <td>{{i.item}}</td>  
+                                       <td>{{i.donated_date}}</td>  
+                                       <!-- <td>{{i.date}}</td>   -->
+                                       <!-- <td>
+                                          {% if i.status != 0 %}
+                                       <i class="fas fa-check" style="color:green;">Accepted</i>
+                                          {% else %}
+                                          <a  class="btn btn-sm bg-success-dark mr-2">
+                                       <i class="fas fa-check" style="color:red;"> Pending</i>
+                                          {% endif %}
+                                      </td> -->
+                                      <td>
+                                          {% if i.status == 1 %}
+                                            Volunteer Assigned 
+                                          {% else %}
+                                            <form method="post" action="{% url 'assign_volunteer' donation_id=i.id %}">
+                                              {% csrf_token %}
+                                              <input type="hidden" name="donation_id" value="{{ i.id }}">
+                                              ...
+                                                <select name="volunteer_id" id="volunteer_select">
+                                                <option value="">--Select Volunteer--</option>
+                                                {% for volunteer in volunteer %}
+                                                   <option value="{{ volunteer.id }}">{{ volunteer.fname }}</option>
+                                                {% endfor %}
+                                                </select>
+                                                ...
+                                             </td>
+                                             <td>
+                                              <button type="submit" class="btn btn-primary btn-sm">Assign</button>
+                                            </form>
+                                          {% endif %}
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}

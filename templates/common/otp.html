@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <!-- Mirrored from preschool.dreamguystech.com/html-template/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 Oct 2021 11:11:39 GMT -->
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+      <title>Preskool - Login</title>
+      <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}">
+      <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&amp;display=swap' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+   </head>
+
+
+
+   <!-- *****************Index Page Header************** -->
+   <html class="no-js"> 
+      <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Orphanage and Donation Management system</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+      <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+      <meta name="author" content="FREEHTML5.CO" />
+   
+      <meta property="og:title" content=""/>
+      <meta property="og:image" content=""/>
+      <meta property="og:url" content=""/>
+      <meta property="og:site_name" content=""/>
+      <meta property="og:description" content=""/>
+      <meta name="twitter:title" content="" />
+      <meta name="twitter:image" content="" />
+      <meta name="twitter:url" content="" />
+      <meta name="twitter:card" content="" />
+      <link rel="shortcut icon" href="favicon.ico">
+   
+      <link rel="stylesheet" href="{%static 'css/animate.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/icomoon.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/bootstrap.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/superfish.css' %}">
+   
+      <link rel="stylesheet" href="{%static 'css/style.css' %}">
+   
+      <script src="{%static 'js/modernizr-2.6.2.min.js' %}"></script>
+      </head>
+      <body>
+         <div id="fh5co-wrapper">
+         <div id="fh5co-page">
+        
+         <header id="fh5co-header-section" class="sticky-banner" style="background-color:#FC7E3F;">
+            <div class="container" >
+               <div class="nav-header" >
+                  <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+                       <style>
+                           h4 {
+                             display: inline-block;
+                             font-weight: bold;
+                             margin-top: 25px;
+                           }
+                           </style>
+                  <h4>Orphanage</h4> <h4 style="color:#fff">Management</h4> 
+                  <nav id="fh5co-menu-wrap" role="navigation">
+                     <ul class="sf-menu" id="-primary-menu">
+                        <li ><a href="#" style="color:#fff;">Home</a></li>
+                        <li ><a href="#" style="color:#fff;">About</a></li>
+                        <li ><a href="#" style="color:#fff;">Contact</a></li>			
+                     </ul>
+                  </nav>
+               </div>
+            </div>
+         </header>
+   
+   
+<script>
+   function validateform()
+             {
+                 var a=document.getElementById('email').value.trim();
+                 var d=document.getElementById('password').value.trim();
+           
+                     var passpatern=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+ 
+ 
+             if(a=="")
+                 {
+                document.getElementById('eml').style.display="block";
+                     document.getElementById('eml').innerHTML="*Please Enter Email";
+                     return false;
+                 }
+                 if(a.indexOf('@')<=0){
+                document.getElementById('eml').style.display="block";
+                     document.getElementById('eml').innerHTML="*Invalid  Email Address";
+                     return false;
+                 }
+             if ((a.charAt(a.length-4)!='.') && (a.charAt(a.length-3)!='.')) {
+                document.getElementById('eml').style.display="block";
+                     document.getElementById('eml').innerHTML="*Invalid  Email Address";
+                     return false;
+                 }
+           else{
+             document.getElementById('eml').style.display="none";
+            
+           }
+ 
+           if(d=="")
+                 {
+                document.getElementById('pass').style.display="block";
+                     document.getElementById('pass').innerHTML="*please enter Password";
+                     return false;
+                 }
+             if (!d.match(passpatern))
+                     {
+                         document.getElementById('pass').style.display="block";
+                         document.getElementById('pass').innerHTML="*capital | small | number | minimum 8 character";
+                         return false;
+                     }
+             else{
+                document.getElementById('pass').style.display="none";
+           return true;
+             }
+ 
+       }
+ 
+ </script>
+  </script>
+  <!-- For Alert Message -->
+  {% include 'orphanage/alert.html' %}
+
+  <script>
+  setTimeout(function(){
+     if ($('#msg').length > 0){
+     $('#msg').remove();
+     }
+     },4000)
+
+  </script>
+  <!-- End Alert -->
+
+
+  <script>
+    function validateform()
+    {
+         var expr = /^[0-9]\d{3}$/;
+         var a=document.getElementById('otp').value.trim();
+         if(a=="")
+            {
+                document.getElementById('otp_error').style.display = "block";
+                document.getElementById('otp_error').innerHTML="**Please enter otp";
+                return false;
+            }
+            if(a!="" && expr.test(a)==false){
+                document.getElementById('otp_error').style.display= "block";
+                document.getElementById('otp_error').innerHTML ="Invalid otp";
+                return false;
+                        }
+                        else{
+                document.getElementById('otp_error').style.display = "none";
+                return true;
+            }
+    }
+            
+     </script>
+   <body>
+      <div class="main-wrapper login-body">
+         <div class="login-wrapper">
+            <div class="container">
+               <div class="loginbox">
+                  <div class="login-left">
+                     <div style="padding:20px;line-height: 0.8;font-weight: bold;color:#fff;" id="message1">
+                       <p style="color:#fff;">An OTP send to your</p>
+                          <p style="color:#fff;font-weight:bold;">{{session}}</p>
+                          <p style="color:#fff;">please verify  !!!</p>
+              
+                          
+                       </div>
+                  </div>
+                  <div class="login-right">
+                     <div class="login-right-wrap">
+                        <h1>Verify your email</h1>
+                        <p class="account-subtitle">   </p>
+                        <form action="{% url 'verify_otp' %}" method="post" onsubmit="return validateform()">
+                           {% csrf_token %}
+                           <div class="form-group">
+                              <input class="form-control" type="text" value="{{session}}" id="email" readonly name="email" >
+                              <span id="eml" style="color: red;font-size: 15px;"></span>
+                           </div>
+                           <div class="form-group">
+                              <input class="form-control" type="tel" maxlength="4" placeholder="Enter otp"   id="otp" name="otp" onblur="return validateform()" onkeyup="return validateform()">
+                              <span id="otp_error" style="color: red;"></span> 
+                           </div>
+                           <div class="form-group">
+                              <button class="btn btn-primary btn-block"  type="submit">Verify</button>
+                           </div>
+                        </form>
+                       
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+   </body>
+</html>

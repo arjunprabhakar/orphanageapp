@@ -1,0 +1,105 @@
+{% extends 'donor/D-base.html' %}
+{% load static %}
+{% block content %}
+
+ <div class="page-wrapper" >
+    <div class="content container-fluid" style="margin-left:-180px;margin-top:-100px;">
+       <div class="page-header">
+          <div class="row">
+             <div class="col">
+                <h3 class="page-title">Profile</h3>
+          </div>
+       </div>
+
+    <div class="card">
+       <div class="card-body">
+          <div class="row">
+             <div class="col-md-10 col-lg-6">
+                <form action="{% url 'addnew_address' %}" method="post" onsubmit="return validateform();">
+                  
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>Mobile</label>
+                            <input type="text"  class="form-control" name="mobile" style="width:220px;" maxlength="10" id="phone" maxlength="10" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+                            <span id="mob" style="color: red;"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control"  name="fname" style="width:220px;" id="fnames" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+                            <span id="fnme" style="color: red;"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control"  name="lname" style="width:220px;" id="lnames" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+                            <span id="lnme" style="color: red;"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>District</label>
+                            <select class="form-control" name="district" style="width:220px;" required>
+                            <option >Select District</option>                 
+                            <option>Alapuzha</option>
+                            <option>Ernakulam</option>
+                            <option>Idukki</option>
+                            <option>Kannur</option>
+                            <option>Kasargod</option>
+                            <option>Kollam</option>
+                            <option>Kottayam</option>
+                            <option>Kozhikode</option>
+                            <option>Malapuram</option>
+                            <option>Palakad</option>
+                            <option>Pathanamthitta</option>
+                            <option>Thiruvananthapuram</option>
+                            <option>Thrissur</option>
+                            <option>Wayanad</option>
+                           
+                            </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>City</label>
+                            <input class="form-control"  type="text" name="city" style="width:220px;" id="cty" id="cty" onKeyUp="return validateform()" onblur="return validateform()">
+                            <span id="ct" style="color: red;"></span >
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>Address</label>
+                            <input class="form-control"  type="textarea" name="address" style="width:220px;" id="add" onKeyUp="return validateform()" onblur="return validateform()">
+                            <span id="ad" style="color: red;"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>Pin Number</label>
+                            <input class="form-control" type="text"  name="pin" style="width:220px;" maxlength="6" id="pnn" maxlength="6" id="pnn" maxlength="6" onKeyUp="return validateform()" onblur="return validateform()">
+                            <span id="pn" style="color: red;"></span >
+                            </div>
+                        </div>
+                                                     
+                    <div class="col-12" style="padding-left :150px;"> 
+                    <button type="submit" class="btn btn-primary">Submit</button>                 
+                    </div>
+                    </div>
+                </form>
+                
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <script data-cfasync="false" src="{% static '../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
+ <script src="{% static 'assets/js/popper.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+ <script src="{% static 'assets/js/script.js' %}"></script>
+</body>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title">Amount Received</h3>
+                        <ul class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="index.html" style="font-weight:bold;color:red;">Total Amount: ₹ {{sum}}</a></li>
+                        </ul>
+                     </div>
+                     <div class="col-auto text-right float-right ml-auto">
+                        <a href="{% url 'download_donations_csv' %}" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download Data</a>
+                     </div>
+                     <div class="col-auto text-right float-right ml-auto">
+                        <a href="{% url 'orpanage_donation_analysys' %}" class="btn btn-outline-primary mr-2">Donation Analysys</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table class="table table-hover table-center mb-0 datatable">
+                                 <thead>
+                                    <tr>
+                                       <th>Sl No</th>
+                                       <th>Donor Email</th>
+                                       <th>Phone</th>
+                                       <th>Amount</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {% for d in data %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ d.email }}</td>
+                                        <td>{{ d.phone }}</td>
+                                        <td>₹ {{ d.amount }}</td>   
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}
+    

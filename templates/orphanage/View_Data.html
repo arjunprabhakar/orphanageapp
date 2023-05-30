@@ -1,0 +1,111 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+
+               <div class="row">
+                <div class="col-lg-6">
+
+                <div class="card" style="width:950px;">
+
+                  <div class="col-auto text-right float-right ml-auto" >
+                     <a href="{% url 'Add_Data' %}" class="btn btn-outline-primary mr-2" style="display:inline-block;">Add More</a>
+                  </div>
+                    <div class="col-auto text-right float-right ml-auto" >
+                        <a href="{% url 'download_data_csv' %}" class="btn btn-outline-primary mr-2" style="display:inline-block;"><i class="fas fa-download"></i> Download</a>
+                     </div>
+
+            <!-- For Alert Message -->
+{% include 'orphanage/alert.html' %}
+
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0){
+        $('#msg').remove();
+        }
+      },4000)
+
+</script>
+<!-- End Alert -->
+
+                <div class="card-body" style="width:900px;">
+                <div class="table-responsive" style="width:900px;">
+                <table class="table mb-0">
+                <thead>
+                <tr>
+                <th>Sl No</th>
+                <th>Name</th>
+                <th>Mark 1</th>
+                <th>Mark 2</th>
+                <th>Predicted Pass %</th>
+                <th>Action</th>
+                <th>Graph</th>
+                </tr>
+                </thead>
+                <tbody>
+              <tr  class="table-danger">
+              
+               <td>0</td>
+                <td>
+                  <h2 class="table-avatar">
+                     <a href="{% url 'children_details' student.student_id %}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{student.student.image.url}}" alt="User Image"></a>
+                     <a href="{% url 'children_details' student.student_id %}" style="color:red;font-weight:bold;">{{student.student.fname}} </a>
+                  </h2>
+                </td>
+                <td  style="text-align:center;">{{student.mark1}}</td>
+                <td style="text-align:center;">{{student.mark2}}</td>
+                <td style="text-align:center;color:red;font-weight:bold;">{{student.predicted_passpercentage}} %</td>
+                <td ><a href="{% url 'delete_data' student.id %}">delete</a></td>
+                <td ><a href="{% url 'plot_graphs' student.student_id %}">View</a></td>
+               
+              </tr>
+              {% for i in mark %} 
+                <tr class="table-primary">
+                <td>{{forloop.counter}}</td>
+                <td>
+                  <h2 class="table-avatar">
+                     <a href="{% url 'children_details' i.student_id %}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.student.image.url}}" alt="User Image"></a>
+                     <a href="{% url 'children_details' i.student_id %}" style="color:red;">{{i.student.fname}} </a>
+                  </h2>
+                </td>
+                <td  style="text-align:center;">{{i.mark1}}</td>
+                <td style="text-align:center;">{{i.mark2}}</td>
+                <td style="text-align:center;">{{i.predicted_passpercentage}} %</td>
+                <td ><a href="{% url 'delete_data' i.id %}">delete</a></td>
+                <td ><a href="{% url 'plot_graphs' i.student_id %}">View</a></td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+            
+            
+
+
+
+            </div>
+         </div>
+{% endblock %}
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+

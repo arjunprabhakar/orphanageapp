@@ -1,0 +1,399 @@
+{% extends 'donor/D-base.html' %}
+{% load static %}
+{% block content %}
+         <div class="page-wrapper" >
+            <div class="content container-fluid" style="margin-left:-180px;margin-top:-100px;">
+               <div class="page-header">
+                  <div class="row">
+                     <div class="col">
+                        <h3 class="page-title">Profile</h3>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="profile-header">
+                        <div class="row align-items-center">
+                           <div class="col-auto profile-image">
+                              <a href="#">
+                              <img class="rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-02.jpg' %}">
+                              </a>
+                           </div>
+                           <div class="col ml-md-n2 profile-user-info">
+                              <h4 class="user-name mb-0" style="font-weight: bold;">{{user.email}}</h4>              
+                           </div>
+                           <div class="col-auto profile-btn">
+                             
+                           </div>
+                        </div>
+                     </div>
+                     <div class="profile-menu">
+                        <ul class="nav nav-tabs nav-tabs-solid">
+                           {% if count == 0 %}
+                           <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#add_tab">Add Details</a>
+                             </li>
+                           {% else %}
+                           <li class="nav-item">
+                              <a class="nav-link active" data-toggle="tab" href="#per_details_tab">About</a>
+                           </li>
+                          {% endif %}
+                           <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>
+                           </li>
+                           <!-- <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#">My Donations</a>
+                           </li>    -->
+                           <li class="nav-item">
+                              <a class="nav-link" data-toggle="tab" href="#new_address_tab">Add new address</a>
+                           </li>                      
+                        </ul>
+                     </div>
+                     <div class="tab-content profile-tab-cont">
+                        <div class="tab-pane fade show active" id="per_details_tab">
+                           <div class="row" >
+                              <div class="col-lg-9">
+                                 <div class="card" >
+                                    <div class="card-body" >
+                                       <h5 class="card-title d-flex justify-content-between">
+                                          <span style="font-weight:bold;">Account Details</span>
+                                         
+                                          {% for i in details %}
+                                          <a   href="{% url 'Delete_details' i.id %}"><span style="color:red;font-weight:bold;">Delete</span></a>
+                                             {% endfor %}
+                                       </h5>
+                                       {% for i in details %}
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name :</p>
+                                          <p class="col-sm-9">{{i.fname}} {{i.lname}}</p>
+                                       </div>                                                                    
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email :</p>
+                                          <p class="col-sm-9">{{i.email_id}}</p>
+                                       </div>
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile :</p>
+                                          <p class="col-sm-9">{{i.mobile}}</p>
+                                       </div>
+                                       <div class="row">
+                                          <p class="col-sm-3 text-muted text-sm-right mb-0">Address :</p>
+                                          <p class="col-sm-9 mb-0">{{i.district}}<br>
+                                             {{i.city}}<br>
+                                             {{i.address}}<br>
+                                             {{i.pin}}
+                                          </p>
+                                       </div>
+                                       {% endfor %}
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-3">
+                                 <div class="card" >
+                                    <div class="card-body" >
+                                       <h5 class="card-title d-flex justify-content-between">
+                                          <span>Account Status</span>
+                                       </h5>
+                                       <button  class="btn btn-success" type="button" style="margin-left:50px;"><i class="fe fe-check-verified" ></i> Active</button>
+                                    </div>
+                                 </div>
+                                 
+                              </div>
+                           </div>
+                        </div>
+                        <script>
+                                
+                           function password_validate()
+                           {
+                               var a=document.getElementById('ops').value.trim();
+                               var b=document.getElementById('nps').value.trim();
+                               var c=document.getElementById('cps').value.trim();
+
+                               var passpatern=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+                               if(a=="")
+                               {
+                                   document.getElementById('opss').style.display="block";
+                                   document.getElementById('opss').innerHTML="**please enter old Password";
+                                   return false;
+                               }
+                               else{
+                                       document.getElementById('opss').style.display="none";            
+                                   }
+                                   
+                               if(b=="")
+                               {
+                                   document.getElementById('npss').style.display="block";
+                                   document.getElementById('npss').innerHTML="**please enter new Password";
+                                   return false;
+                               }
+
+                               if (!b.match(passpatern))
+                               {
+                                   document.getElementById('npss').style.display="block";
+                                   document.getElementById('npss').innerHTML="**Min length 8 | One Uppercase |One lowercase | One number";
+                                   return false;
+                               }
+                               else{
+                                       document.getElementById('npss').style.display="none";
+                                   }
+
+                                   if(c=="")
+                               {
+                                   document.getElementById('cpss').style.display="block";
+                                   document.getElementById('cpss').innerHTML="**please Confirm Password";
+                                   return false;
+                               }
+                               else{
+                                       document.getElementById('cpss').style.display="none";
+                                       
+                                   }
+                                   if(b!=c)
+                                   {
+                                       document.getElementById('cpss').style.display="block";
+                                       document.getElementById('cpss').innerHTML="**Password doesn't match";
+                                       return false;
+                                   }
+                                   else{
+                                           document.getElementById('cpss').style.display="none";
+                                           return true;
+                                       }
+                               }
+                           </script>
+                        <div id="password_tab" class="tab-pane fade">
+                           <div class="card">
+                              <div class="card-body">
+                                 <div class="row">
+                                    <div class="col-md-10 col-lg-6">
+                                       <form action="{% url 'donor_change_password' %}" method="post" onsubmit="return password_validate()">
+                                        {% csrf_token %}
+                                          <div class="form-group">
+                                             <label>Old Password</label>
+                                             <input type="password" class="form-control" name="oldpss" id="ops" onKeyUp="return password_validate()" onblur="return password_validate()">
+                                             <span id="opss" style="color: red;"></span>
+                                          </div>
+                                          <div class="form-group">
+                                             <label>New Password</label>
+                                             <input type="password" class="form-control" name="pass" id="nps" onKeyUp="return password_validate()" onblur="return password_validate()">
+                                             <span id="npss" style="color: red;"></span>
+                                          </div>
+                                          <div class="form-group">
+                                             <label>Confirm Password</label>
+                                             <input type="password" class="form-control" id="cps" onKeyUp="return password_validate()" onblur="return password_validate()">
+                                             <span id="cpss" style="color: red;"></span>
+                                          </div>
+                                          <button class="btn btn-primary" type="submit">Save Changes</button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        <script>
+
+                           function validateform(){
+                              var a=document.getElementById('phone').value.trim();
+                              var b=document.getElementById('fnames').value.trim();
+                              var c=document.getElementById('lnames').value.trim();
+                              var d=document.getElementById('cty').value.trim();
+                              var e=document.getElementById('add').value.trim();
+                              var f=document.getElementById('pnn').value.trim();
+
+
+                              
+
+                              var expr = /^[6-9]\d{9}$/;
+                if(a=="")
+                {
+                    document.getElementById('mob').style.display="block";
+                    document.getElementById('mob').innerHTML="**Please Enter Number";
+                    return false;
+                }
+                if(a!="" && expr.test(a)==false){
+                           document.getElementById('mob').style.display= "block";
+                           document.getElementById('mob').innerHTML ="Invalid Phone number";
+                           return false;
+                                   }
+                                   else{
+                           document.getElementById('mob').style.display = "none";
+                           
+                       }
+                       if(b=="")
+                {
+					document.getElementById('fnme').style.display="block";
+                    document.getElementById('fnme').innerHTML="**Please Enter first Name";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(b)){
+					document.getElementById('fnme').style.display="block";
+                    document.getElementById('fnme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('fnme').style.display="none";
+				}
+                 
+            
+            if(c=="")
+                {
+					document.getElementById('lnme').style.display="block";
+                    document.getElementById('lnme').innerHTML="**Please Enter last Name";
+                    return false;
+                }
+				if(/[^a-zA-Z^\s]/.test(c)){
+					document.getElementById('lnme').style.display="block";
+                    document.getElementById('lnme').innerHTML="**Alphabets Only";
+                    return false;
+				}
+				else{
+					document.getElementById('lnme').style.display="none";
+				}
+
+
+            if(d=="")
+                {
+					document.getElementById('ct').style.display="block";
+                    document.getElementById('ct').innerHTML="**Please Enter City";
+                    return false;
+                }
+				else{
+					document.getElementById('ct').style.display="none";
+					
+				}
+
+
+            if(e=="")
+                {
+					document.getElementById('ad').style.display="block";
+                    document.getElementById('ad').innerHTML="**Please Enter Address";
+                    return false;
+                }
+				else{
+					document.getElementById('ad').style.display="none";
+				}
+            
+            if(f=="")
+            {
+               document.getElementById('pn').style.display="block";
+               document.getElementById('pn').innerHTML="**Please Enter Pin";
+               return false;
+            }
+            if(f!="" && exprr.test(f)==false){
+               document.getElementById('pn').style.display= "block";
+               document.getElementById('pn').innerHTML ="Invalid pin number";
+               return false;
+                  }
+            else{
+               document.getElementById('pn').style.display="none";
+            }
+
+                           }
+
+                        </script>
+                        <div id="add_tab" class="tab-pane fade">
+                            <div class="card">
+                               <div class="card-body">
+                                  <div class="row">
+                                     <div class="col-md-10 col-lg-6">
+                                        <form action="{% url 'Donor_details' %}" method="post" onsubmit="return validateform();">
+                                          
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="email" value="{{user.email}}" class="form-control" name="email" readonly style="width:220px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Mobile</label>
+                                                    <input type="text"  class="form-control" name="mobile" style="width:220px;" maxlength="10" id="phone" maxlength="10" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="mob" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>First Name</label>
+                                                    <input type="text" class="form-control"  name="fname" style="width:220px;" id="fnames" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="fnme" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Last Name</label>
+                                                    <input type="text" class="form-control"  name="lname" style="width:220px;" id="lnames" onclick="return validateform()" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="lnme" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>District</label>
+                                                    <select class="form-control" name="district" style="width:220px;" required>
+                                                    <option >Select District</option>                 
+                                                    <option>Alapuzha</option>
+                                                    <option>Ernakulam</option>
+                                                    <option>Idukki</option>
+                                                    <option>Kannur</option>
+                                                    <option>Kasargod</option>
+                                                    <option>Kollam</option>
+                                                    <option>Kottayam</option>
+                                                    <option>Kozhikode</option>
+                                                    <option>Malapuram</option>
+                                                    <option>Palakad</option>
+                                                    <option>Pathanamthitta</option>
+                                                    <option>Thiruvananthapuram</option>
+                                                    <option>Thrissur</option>
+                                                    <option>Wayanad</option>
+                                                   
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>City</label>
+                                                    <input class="form-control"  type="text" name="city" style="width:220px;" id="cty" id="cty" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="ct" style="color: red;"></span >
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Address</label>
+                                                    <input class="form-control"  type="textarea" name="address" style="width:220px;" id="add" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="ad" style="color: red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                    <label>Pin Number</label>
+                                                    <input class="form-control" type="text"  name="pin" style="width:220px;" maxlength="6" id="pnn" maxlength="6" id="pnn" maxlength="6" onKeyUp="return validateform()" onblur="return validateform()">
+                                                    <span id="pn" style="color: red;"></span >
+                                                    </div>
+                                                </div>
+                                                                             
+                                            <div class="col-12" style="padding-left :150px;"> 
+                                                     <button type="submit" class="btn btn-primary">Submit</button>                 
+                                            </div>
+                                            </div>
+                                        </form>
+                                     </div>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                         
+
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script data-cfasync="false" src="{% static '../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+   </body>
+   {% endblock %}

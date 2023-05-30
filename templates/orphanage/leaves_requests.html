@@ -1,0 +1,60 @@
+{% extends 'orphanage/base.html' %}
+{% load static %}
+{% block content %}
+
+         <div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h3 class="page-title"></h3>
+                        <ul class="breadcrumb">
+                           <!-- <li class="breadcrumb-item"><a href="index.html" style="font-weight:bold;color:red;">Total : {{count}}</a></li> -->
+                        </ul>
+                     </div>
+                     <div class="col-auto text-right float-right ml-auto">
+                        <!-- <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                        <a href="{% url 'children_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                           <div class="table-responsive">
+                              <table class="table table-hover table-center mb-0 datatable">
+                                 <thead>
+                                    <tr>
+                                       <th>Volunteer</th> 
+                                       <!-- <th>Date Applied</th>
+                                       <th>From date</th>
+                                       <th>To date</th>
+                                       <th>Reason</th> -->
+                                      
+                                       <th class="">Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 
+                                    <h1>List of Leaves</h1>
+                                    <ul>
+                                    {% for volunteer in volunteers %}
+                                    <tr>
+                                       <td>{{ volunteer.fname }}</td>
+                                       <td><a id="leave_request" href="{% url 'leave_requests' volunteer.id %}" class="btn btn-primary">View Leave Requests</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    </ul>
+
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock %}
+    
